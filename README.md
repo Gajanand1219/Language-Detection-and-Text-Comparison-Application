@@ -48,6 +48,9 @@ https://github.com/user-attachments/assets/f553d73f-4241-4329-a341-cd46711d72ae
 4. **CSS Styles**
    - Styling: The CSS styles define the layout, colors, and appearance of various elements, enhancing the user interface with a cohesive and appealing design.
 
+5. **Code Overview**
+   - This code is designed to enhance the user interface of a web application by displaying a loading animation and a progress bar that visually represents the accuracy of a process, such as language detection or text comparison.
+     #
 ## Summary
 
 Overall, your application provides users with a straightforward way to detect languages and compare texts. The combination of Flask for backend processing, `langdetect` for language analysis, and well-structured HTML/CSS for frontend display creates an effective tool for language-related tasks.
