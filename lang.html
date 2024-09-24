@@ -1,0 +1,170 @@
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Language Detection and Text Comparison</title>
+<!-- ///////////////////////////////////////////////////////////  STYLe ////////////////////////////////////////////////////////////////////// -->
+
+     <style>
+         body {
+             margin: 20px;
+         }            
+         nav {
+             width: 97%;
+             height: 70px;
+             color: rgb(239, 238, 245);
+             background-color: rgb(106, 148, 188);
+             display: flex;
+             justify-content: space-around;
+             align-items: center;
+             font-size: xx-large;
+         }
+         nav p{
+            color: white;
+            font-size: xx-large;
+         }
+         span {
+             color: yellow;
+         }
+         a {
+             text-decoration: none;
+             color: azure;
+         }
+         .logo {
+             border-radius: 50px;
+             padding: 12px;
+         }
+         .logo:hover {
+             background-color: black;
+             color: aliceblue;
+             border: 2px solid rgb(229, 223, 223);
+         }
+
+         .div1 {
+             box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 
+                 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17)
+                 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+             width: 94.5%;
+             height: 750px;
+             border: 1px solid black;
+             padding-left: 50px;
+         }
+         h1 {
+             padding-left: 40px;
+         }
+         p {
+             font-size: x-large;
+             padding-left: 60px;
+         }
+         textarea {
+             width: 80%; 
+             border: 2px solid black;
+             box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3)
+                 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+         }
+         button {
+             width: 150px;
+             height: 70px;
+             font-size: x-large;
+             background-color: rgb(80, 82, 176);
+             color: white;
+             border-radius: 20px;
+         }
+         input {
+             width: 120px;
+             height: 70px;
+             font-size: x-large;
+             background-color: rgb(80, 82, 176);
+             color: white;
+             border-radius: 20px;
+             margin-left: 20px;
+         }
+         .main {
+             display: flex;
+         }
+         .div2 {
+             padding: 20px;
+             margin-left: 100px;
+         }
+         .div3 {
+            background-color: aqua;
+            height: 200px;
+            width: 200px;
+            padding-left: 100px;
+            padding-top: 20px;
+            margin-left: 250px;
+            margin-top: 20px;
+            border: 1px solid black;
+        }
+         .loader {
+             border-radius: 50%;
+             border-top: 16px solid blue;
+             border-right: 16px solid green;
+             border-bottom: 16px solid rgb(12, 11, 10);
+             border-left: 16px solid rgb(87, 239, 11);
+             width: 120px;
+             height: 120px;
+             -webkit-animation: spin 2s linear infinite;
+             animation: spin 2s linear infinite;
+             display: none;
+         }
+         @keyframes spin {
+             100% { transform: rotate(360deg); }
+         }
+         
+     </style>
+ </head>
+<!-- ///////////////////////////////////////////////////////////  BODY ////////////////////////////////////////////////////////////////////// -->
+
+ <body>
+
+     <nav>
+         <div>  
+             <p>Language Detection<span>.PY</span></p>
+         </div>
+         <div class="logo">  
+             <a href="/">Text Detection</a>
+         </div>
+         <div class="logo">  
+             <a href="/text">Text Compare</a>
+         </div>
+     </nav>
+ 
+     <div class="div1">
+         <h1> Detect Language</h1>
+         <p>To detect the language of text or a web page, input the text below. The system can identify over 50 languages.<br>
+            If the input is in Arabic, Chinese, Danish, English, French, German, Russian, or Spanish,
+            the meaning of the text is encoded numerically <br>as a semantic fingerprint, which is displayed graphically as a grid.</p>
+ 
+         <div class="main">
+             <div class="div2">
+                 <form action="/detect" method="POST">
+                     <label for="text">Enter text:</label><br>
+                     <textarea name="text" rows="13" cols="110" placeholder="Enter text to be detected...!"></textarea><br><br>
+                     <button type="submit" onclick="showLoader()">Detect</button>
+                     <input type="reset" value="Clear">
+                 </form>
+             </div>
+             <div class="div3">
+                 <div class="loader" id="loader"></div>
+             </div>
+         </div>
+<!-- ///////////////////////////////////////////////////////////  RESULT ////////////////////////////////////////////////////////////////////// -->
+ 
+         {% if hi %}
+         <h1>Detected Languages:</h1>
+         <p>{{ hi }}</p>
+         {% endif %}
+     </div>
+<!-- ///////////////////////////////////////////////////////////  SCRIPT ////////////////////////////////////////////////////////////////////// -->
+
+
+     <script>
+         function showLoader() {
+             document.getElementById('loader').style.display = 'block';
+         }
+     </script>
+ </body>
+ </html>
+ 
