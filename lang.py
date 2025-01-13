@@ -43,13 +43,13 @@ def detect_language():
             detected_languages_list.append(f"This is ({lang_code}) {lang_name} language with probability {lang.prob*100:.2f}%")
         hi = ', '.join(detected_languages_list)
     except LangDetectException:
-        hi = "Could not detect the language. Please provide more input."
+        hi = "Hi Could not detect the language. Please provide more input."
     time.sleep(1.6)
     return render_template('lang.html', hi=hi)
 
 def calculate_accuracy(text1, text2):
     matches = 0
-    max_length = max(len(text1), len(text2))  # Length of the longer text
+    max_length = max(len(text1), len(text2))  # Length of the longer text.
 
     # Count matching characters
     for i in range(min(len(text1), len(text2))):
