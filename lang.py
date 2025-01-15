@@ -82,4 +82,4 @@ def compare_text():
     return render_template('compare.html', result=result, accuracy=round(accuracy,2))
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
