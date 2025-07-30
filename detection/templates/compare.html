@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- ////////////////////////////////////////// CSS ////////////////////////////////////////////////////////////////////////// -->
+    <style>        
+         nav {
+             width: 97%;
+             height: 70px;
+             color: rgb(239, 238, 245);
+             background-color: rgb(106, 148, 188);
+             display: flex;
+             justify-content: space-around;
+             align-items: center;
+             font-size: xx-large;
+         }
+         span {
+             color: yellow;
+         }
+         a {
+             text-decoration: none;
+             color: azure;
+         }
+         .logo {
+             border-radius: 50px;
+             padding: 12px;
+         }
+         .logo:hover {
+             background-color: black;
+             color: aliceblue;
+             border: 2px solid rgb(171, 45, 45);
+             box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+         }
+
+         .div1 {
+             box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 
+                 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17)
+                 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+             width: 94.5%;
+             height: 840px;
+             border: 1px solid black;
+             padding-left: 50px;
+         }
+         h1 {
+             padding-left: 40px;
+         }
+         p {
+             font-size: x-large;
+             padding-left: 60px;
+         }
+         textarea {
+             width: 80%; 
+             border: 2px solid black;
+             box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3)
+                 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+         }
+         
+         input {
+             width: 120px;
+             height: 70px;
+             font-size: x-large;
+             background-color: rgb(80, 82, 176);
+             color: white;
+             border-radius: 20px;
+         }
+         .main {
+             display: flex;
+         }
+         .div2 {
+             padding: 20px;
+             margin-left: 100px;
+         }
+         .submit {
+             margin-top: 10px;
+             background-color: goldenrod;
+             color: black;
+            margin-left: 800px;
+            box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+         }
+         .clear{
+            margin-left: 480px;
+         }
+
+         .progress-container {
+            width: 80%;
+            background-color: #f3f3f3;
+            border-radius: 25px;
+            margin: 20px auto;
+            height: 30px;
+        }
+        /* Progress bar */
+        .progress-bar {
+            width: 0;
+            height: 100%;
+            background-color: green;
+            border-radius: 25px;
+            text-align: center;
+            line-height: 30px;
+            color: white;
+        }
+    </style>
+</head>
+    <!-- /////////////////////////////////////////////////////////// BODY ///////////////////////////////////////////////////////// -->
+<body>
+    <nav>                                
+        <div>  
+            <p>Language Detection<span>.PY</span></p>
+        </div>
+        <div class="logo">  
+            <a href="/">Text Detection</a>
+        </div>
+        <div class="logo">  
+            <a href="/text">Text Compare</a>
+        </div>
+    </nav>
+    
+    <div class="div1">
+        <h1>Compare Text</h1>
+        <p>To compare text or web pages, follow the instructions on the input screen below. The meaning of the two texts is numerically encoded as two semantic fingerprints, which are graphically displayed as two square grids. Each blue dot on a grid contains part of the meaning of the text. A third grid, between the other two, indicates with orange dots where the left and right grids overlap. The overlap in meaning between the two texts is quantified as a percentage.</p>
+
+<!-- ///////////////////////////////////////////////////////////  FORM ////////////////////////////////////////////////////////////////////// -->
+
+
+        <form action="/text" method="POST">
+            <div class="main">
+                <div class="div2">
+                    <label for="text1">Enter text 1:</label><br>
+                    <textarea name="text1" rows="13" cols="110" placeholder="Enter first text" required></textarea><br><br>
+                    <input type="reset" value="Clear" class="clear">
+
+                </div>
+                <div class="div2">
+                    <label for="text2">Enter text 2:</label><br>
+                    <textarea name="text2" rows="13" cols="110" placeholder="Enter second text" required></textarea><br><br>
+                   <input type="reset" value="Clear" >
+                </div>
+            </div>
+            <input type="submit" value="Compare" class="submit">
+        </form>
+
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+<!-- ///////////////////////////////////////////////////////////  RESULT ////////////////////////////////////////////////////////////////////// -->
+        {% if result %}
+        <h1>Result:</h1>
+        <p>{{ result }}</p>
+        <p>Accuracy: {{ accuracy|round(2) }}%</p>
+        {% endif %}
+    </div>
+
+
+<!-- ///////////////////////////////////////////////////////////  SCRIPT ////////////////////////////////////////////////////////////////////// -->
+
+
+    <script>
+        // Function to animate the progress bar
+        function animateProgressBar(accuracy) {
+            var progressBar = document.getElementById('progressBar');
+            var width = 0;
+            var interval = setInterval(function() {
+                if (width >= accuracy) {
+                    clearInterval(interval); // Stop when it reaches the accuracy
+                } else {
+                    width++;
+                    progressBar.style.width = width + '%';
+                    progressBar.innerHTML = width + '%';
+                }
+            }, 20); // Speed of the animation
+        }
+
+        // Automatically run the animation if accuracy is passed from the backend
+        document.addEventListener('DOMContentLoaded', function() {
+            var accuracy = {{ accuracy }};
+            animateProgressBar(accuracy);
+        });
+    </script>
+    
+</body>
+</html>
